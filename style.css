@@ -12,29 +12,33 @@ body{
 #calculator{
     height: 400px;
     width: 300px;
-    background-color: blue;
+    background-color: #001A23;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    border-radius: 25px;
 }
 .display{
     height:80px;
     width: 270px;
     border-radius: 10px;
-    background-color: grey;
+    background-color:#E8F1F2;
+    display:flex;
+    justify-content:flex-end;
+    align-items: center;
 }
-
 .controls{
     display: flex;
     height: 250px;
     width: 270px;
     user-select: none;
+    background-color: #B3EFB2;
 }
-.number:hover , .operator:hover {
-    color: white;
+.number:hover , .operator:hover , .number-functions:hover {
+    color:#7A9E7E;
  }
-.number{
+.number , .number-functions{
     width: 65.5px;
     border: 1px solid black;
     height: 60.5px;
@@ -59,4 +63,7 @@ body{
     align-items: center;
     justify-content: center;
     font-size: 40px;
+}
+#display-content{
+    font-size: 37px;
 }
