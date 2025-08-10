@@ -11,7 +11,6 @@ controls.addEventListener("click" , (e) => {
             case "clear":
                 value = "";
                 operatorCount = 0;
-                operatorClickCount = 0;
                 break;
             case "equal":
                 operation();
@@ -21,24 +20,28 @@ controls.addEventListener("click" , (e) => {
     }
     else {
         value += target.id;
-    }
 
-    
-// to increase the count of the operator
-    if(target.classList.contains("operator")){
-        operatorCount = ++operatorCount};
-
-    // to do the operation with the operators
-    if (operatorCount === 2){
-        operatorCount = 1;
-        let lastOperator = value.slice(-1);
-        value = value.slice(0,-1)
-        operation();
-        value += lastOperator;
+        if(target.classList.contains("operator")){
+            operatorCount = ++operatorCount
+            let lastChar = value[value.length - 1];
+            let secondLast = value[value.length - 2];
+            let operatorArray = ["+" , "*", "-", "/"];
+            if (operatorArray.includes(lastChar) === true && operatorArray.includes(secondLast) === true) {
+                value = value.slice(0,-2);
+                value += lastChar;
+                operatorCount = 1;
+            }
+            
+            if (operatorCount === 2){
+              operatorCount = 0;
+              value = value.slice(0,-1);
+              operation();
+            }
+           
+        };  
     }
 
     display.textContent = value;
-    console.log(value)
 })     
 
 //this will do the operation of the value
@@ -54,7 +57,7 @@ function operation(){
     }
     else if (value.includes("-")){
         let number = value.split("-");
-        value = number.reduce((acc,cur) => acc-cur,0);
+        value = number.reduce((acc,cur) => acc-cur);
     }
     else if (value.includes("/")){
         let number = value.split("/");

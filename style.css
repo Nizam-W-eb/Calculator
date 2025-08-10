@@ -2,11 +2,12 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family:'Times New Roman', Times, serif;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top:40px;
+    background-color: #31493C ;
 }
 
 #calculator{
@@ -27,6 +28,7 @@ body{
     display:flex;
     justify-content:flex-end;
     align-items: center;
+    overflow: hidden;
 }
 .controls{
     display: flex;
