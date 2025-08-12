@@ -3,9 +3,11 @@ let display = document.querySelector("#display-content");
 let operator = document.querySelectorAll(".operator")
 let value = "";
 let operatorCount = 0;
+let clickCount = 0;
 
 controls.addEventListener("click" , (e) => {
     let target = e.target;
+
     if (target.classList.contains('number-functions')){
         switch (target.id){
             case "clear":
@@ -13,11 +15,16 @@ controls.addEventListener("click" , (e) => {
                 operatorCount = 0;
                 break;
             case "equal":
-                operation();
-                operatorCount = 0;
+                if (value.length === 1 && ["+","*","-","/"].includes(value)){}
+                else {
+                  operation();
+                  operatorCount = 0;
+                }
                 break; 
         }   
     }
+    
+    
     else {
         value += target.id;
 
@@ -33,12 +40,19 @@ controls.addEventListener("click" , (e) => {
             }
             
             if (operatorCount === 2){
-              operatorCount = 0;
+              operatorCount = 1;
+              last = value.slice(-1);
               value = value.slice(0,-1);
               operation();
+              value += last
             }
-           
+
         };  
+    }
+    
+    if(value === "Infinity" || value === "0/0"){
+        value = "";
+        operatorCount = 0;
     }
 
     display.textContent = value;
@@ -48,21 +62,36 @@ controls.addEventListener("click" , (e) => {
 function operation(){
     if (value.includes("+")){
         let number = value.split("+");
+        if (number.includes("") === true){
+            number = number.filter(num =>  num !== "")
+        }
         number = number.map(num => parseInt(num));
         value = number.reduce((acc,cur) => acc+cur,0);
     }
     else if (value.includes("*")){
         let number = value.split("*");
-        value = number.reduce((acc,cur) => acc*cur);
+        if (number.includes("") === true){
+            number = number.filter(num => num !== "")
+        }
+        number = number.map(num => parseInt(num))
+        value = number.reduce((acc,cur) => acc*cur,1);
     }
     else if (value.includes("-")){
         let number = value.split("-");
+        
         value = number.reduce((acc,cur) => acc-cur);
     }
     else if (value.includes("/")){
         let number = value.split("/");
+        if (number.includes("") === true){
+            number = number.filter(num =>  num !== "")
+        }
+        number = number.map(num => parseInt(num))
         value = number.reduce((acc,cur) => acc/cur);
-    }
+        if(value % 1 !== 0){
+          value = value.toFixed(2)
+        }
+    }    
     else{
        value = "Error";
     }
