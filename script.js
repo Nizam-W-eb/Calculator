@@ -50,10 +50,14 @@ controls.addEventListener("click" , (e) => {
         };  
     }
     
-    if(value === "Infinity" || value === "0/0"){
-        value = "";
-        operatorCount = 0;
+    if(value === "Infinity" || value === "Error"){
+        clickCount++;
+    }    
+    if (value.slice(0,-1) === "Infinity" || value.slice(0,-1) === "Error"){
+            clickCount = 0;
+            value = "";
     }
+    
 
     display.textContent = value;
 })     
